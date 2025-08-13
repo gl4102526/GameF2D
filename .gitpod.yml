@@ -1,0 +1,20 @@
+tasks:
+  - init: |
+      sudo apt-get update
+      sudo apt-get install -y openjdk-17-jdk wget unzip
+      wget https://dl.google.com/android/repository/commandlinetools-linux-10406996_latest.zip -O cmd-tools.zip
+      mkdir -p $HOME/android-sdk/cmdline-tools
+      unzip cmd-tools.zip -d $HOME/android-sdk/cmdline-tools
+      mv $HOME/android-sdk/cmdline-tools/cmdline-tools $HOME/android-sdk/cmdline-tools/latest
+      yes | $HOME/android-sdk/cmdline-tools/latest/bin/sdkmanager --licenses
+      $HOME/android-sdk/cmdline-tools/latest/bin/sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0"
+      export ANDROID_HOME=$HOME/android-sdk
+      export PATH=$ANDROID_HOME/platform-tools:$PATH
+      echo "✅ Android SDK installed"
+    command: bash
+
+vscode:
+  extensions:
+    - vscjava.vscode-java-pack
+    - gabrielbb.vscode-lombok
+    - ms-vscode.gradle
